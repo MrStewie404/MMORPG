@@ -1,0 +1,39 @@
+{% extends 'flatpages/default.html' %} 
+{% load static %}
+{% load custom_tags %}
+
+{% block title %}
+Users
+{% endblock title %}
+
+{% block content %}
+{% if request.user.username and request.user.id == ad.user_id %}
+<div class="center" style="padding: 0; display: flex; justify-content: space-between;">
+    <a href="/ads/{{ad.pk}}/update"><h3>Изменить</h3></a>
+    <h2>{{ ad.title }}</h2>
+    <a href="/ads/{{ad.pk}}/delete"><h3>Удалить</h3></a>
+</div>
+{% else %}
+<div class="center" style="padding: 0; display: flex; justify-content: space-between;">
+    <h2>{{ ad.title }}</h2>
+    <a href="/ads/{{ad.pk}}/review"><h3>Откликнуться</h3></a>
+</div>
+{% endif %}
+<div style="background-color: aquamarine; margin: 10px 2px; padding: 0 4px 1px 4px;">
+    <!-- <div style="display: flex; justify-content: space-between; margin: 40px 0 15px 0; padding: 40px 40px 0px 40px;">
+        <h3>Категория</h3>
+        <h3>ник</h3>
+    </div> -->
+    <ul class="ads" style="display: block;">
+        <div style="display: flex; justify-content: space-between;">
+            <h3>Категория: {{ ad.category.first.name}}</h3>
+            {% if request.user.id != ad.user_id %}
+                <h3>{{ ad.user }}</h3>
+            {% endif %}
+        </div>
+        <div class="block">
+            <p>{{ ad.text|safe }}</p>
+        </div>
+    </ul>
+</div>
+{% endblock content %}

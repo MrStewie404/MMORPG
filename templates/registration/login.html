@@ -1,0 +1,19 @@
+{% extends 'flatpages/default.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<form class="window" method="post" action="{% url 'login' %}">
+    <fieldset>
+        Username
+        {% csrf_token %}
+        <div>{{ form.username }}</div>
+        Password
+        <div>{{ form.password }}</div>
+    </fieldset>
+    <input type="hidden" name="next" value="{{ next }}">
+    <input class="loginButton" type="submit" value="Login">
+</form>
+
+{% endblock %}

@@ -1,0 +1,80 @@
+<!--  наследуемся от шаблона default.html, который мы создавали для flatpages -->
+{% extends 'flatpages/default.html' %} 
+{% load static %}
+
+<!-- Название у нас будет products -->
+{% block title %}
+Users
+{% endblock title %}
+ 
+<!-- В контенте на странице мы выводим все товары -->
+{% block content %}
+<h1 class="center">Объявления</h1>
+
+<form action="" method="get">
+    
+    <div class="center">Название {{ filterset.form.title }}
+        <input type="submit" value="Найти" />
+    </div>
+    <!-- <div class="center">
+        <div>
+            <div>Категория {{ filterset.form.category }}</div>
+            <div>Дата создания {{ filterset.form.time_create }}</div>
+        </div>
+    </div> -->
+</form>
+
+{% if ads %}
+    <div class="background">
+        <div style="display: flex; justify-content: space-between; margin: 20px 0 15px 0; padding: 0px 40px 0px 40px;">
+            <h3>Категория</h3>
+            <h3>ник</h3>
+        </div>
+        {% for ad in ads %}
+        <ul class="ads" style="display: block;">
+
+            <div style="display: flex; justify-content: space-between;">
+                <h3>{{ ad.category.first.name }}</h3>
+                    <h3><a href="ads/{{ ad.id }}">перейти</a></h3>
+                <h3>{{ ad.user.username }}</h3>
+            </div>
+            <div class="block">
+                <h2>{{ ad.title }}</h2>
+            </div>
+        </ul>
+        {% endfor %}
+    </div>
+
+    {# Добавляем пагинацию на страницу #}
+
+   {# Информация о предыдущих страницах #}
+    <div style="display: flex; justify-content: center; margin-top: 60px; font-size: x-large;">
+    {% if page_obj.has_previous %}
+        <a href="?page=1">1</a>
+        {% if page_obj.previous_page_number != 1 %}
+            ...
+            <a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+        {% endif %}
+    {% endif %}
+
+    {# Информация о текущей странице #}
+    {{ page_obj.number }}
+
+    {# Информация о следующих страницах #}
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+        {% if paginator.num_pages != page_obj.next_page_number %}
+            ...
+            <a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+        {% endif %}
+    {% endif %}
+    </div>
+
+{% else %}
+    <div class="background">
+    <div style="display: flex; justify-content: space-between; margin: 40px 0 15px 0; padding: 20px 40px 0px 40px;">
+        <h3>Кажется, нет задания подходящих под ваши критерии</h3>
+    </div>
+{% endif %}
+
+{% endblock content %}

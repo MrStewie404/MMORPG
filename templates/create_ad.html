@@ -1,0 +1,35 @@
+{% extends 'flatpages/default.html' %}
+{% load static %}
+
+{% block content %}
+
+<head>
+    <style>
+        .text_input {
+  padding: 10px 10px;
+  width: 380px; /* Например */
+  height: 150px; /* Например */
+  border: 1px solid black;
+        }
+    </style>
+</head>
+
+<div class="background">
+    <h1 style="display: flex; justify-content: center; padding-top: 20px;">Создание объявления</h1>
+    
+    <form class="block" style="display:flex; justify-content: center; padding: 10px; margin: 20px;" action="" method="post">
+        Текст: <div>{{ form.text }}</div>
+        <div style="display: flex; flex-direction:column; justify-content: space-between;">
+            {% csrf_token %}
+            <div>
+                Название: 
+                <div>{{ form.title }}</div>
+                Тип: 
+                <div>{{ form.content_type }}</div>
+            </div>
+            <input style="padding: 5px 50px;" type="submit" value="Save">
+        </div>
+    </form>
+</div>
+
+{% endblock content %}

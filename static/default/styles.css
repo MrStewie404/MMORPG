@@ -1,0 +1,101 @@
+@font-face {
+    font-family: avenir;
+    /* src: url('avenir.ttf'); */
+    src: url('silkscreen.ttf');
+  }
+
+* {
+  font-family: avenir;
+}
+
+body {
+    background-color: rgb(87, 116, 210);
+}
+
+.navbar-brand {
+    display: flex;
+    justify-content: center;
+    margin: -8px -8px;
+    padding: 5px;
+    background-color: rgb(84, 76, 190);
+    color: rgb(103, 232, 176);
+}
+
+h3 {
+    margin: 10px 0 5px 0;
+    padding: 10px 10px;
+}
+
+.center {
+    display: flex;
+    background-color: rgb(184, 166, 255);
+    justify-content: center;
+    margin: 20px;
+    padding: 20px;
+    box-shadow: 0px 0px 1px 5px rgb(255, 255, 255);
+}
+
+.ads {
+    display: flex;
+    background-color: rgb(184, 166, 255);
+    margin: 0px 10px 20px 10px;
+    padding: 20px;
+    box-shadow: 0px 0px 1px 5px rgb(255, 255, 255);
+}
+
+.block {
+    padding: 2px;
+    margin-top: 10px;
+    background-color: #87e678;
+    box-shadow: 0px 0px 1px 5px rgb(0, 0, 0);
+}
+
+.block p, h2 {
+    margin-left: 20px;
+}
+
+.background {
+    background-color: aquamarine; 
+    margin: 10px 20px; 
+    padding: 0 4px 1px 4px;
+    box-shadow: 0px 0px 0px 5px black;
+}
+
+.window {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 100px auto;
+    padding: 20px;
+    max-width: 300px;
+    background-color: #87e678;
+    box-shadow: 10px 10px black;
+}
+
+fieldset{
+    padding: 0 20px;
+    border-radius: 0px;
+    border: 0 solid;
+    margin: 20px auto;
+}
+
+.loginButton {
+    color: #ffffff;
+    background-color: rgb(0, 0, 0);
+    /* border-radius: 6px; */
+    width: 100px;
+    font-size: large;
+    margin: 0px auto;
+    box-shadow: 0 0 0 0 black;
+    transition: 0.2s ease-in-out;
+  }
+
+.loginButton:hover{
+  background-color: rgb(239, 235, 235);
+  box-shadow: 0 0 0 4px black;
+  color: #000000;
+}
+
+.loginButton:active {
+  background-color: rgb(239, 235, 235);
+}

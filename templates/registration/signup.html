@@ -1,0 +1,23 @@
+{% extends "flatpages/default.html" %}
+{% load i18n %}
+
+{% load static %}
+
+{% block content %}
+
+<form class="window" method="post">
+{% csrf_token %}
+    <fieldset>
+        Username
+        <div>{{ form.username }}</div>
+        Почта
+        <div>{{ form.email }}</div>
+        Пароль
+        <div>{{ form.password1 }}</div>
+        Подтвердите пароль
+        <div>{{ form.password2 }}</div>
+    </fieldset>
+    <input class="loginButton" type="submit" value="Sing up">
+</form>
+
+{% endblock %}

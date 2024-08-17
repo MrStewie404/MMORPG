@@ -1,0 +1,129 @@
+<!--  наследуемся от шаблона default.html, который мы создавали для flatpages -->
+{% extends 'flatpages/default.html' %} 
+{% load static %}
+
+<!-- Название у нас будет products -->
+{% block title %}
+Users
+{% endblock title %}
+ 
+<!-- В контенте на странице мы выводим все товары -->
+{% block content %}
+<!-- <h1>Все товары</h1> -->
+
+<style>
+    table {
+    border-collapse: collapse; /* Убираем двойные границы */
+    width: 100%; /* Задаем ширину таблицы */
+    background-color: #87e678;
+    box-shadow: 10px 10px black;
+}
+  
+  th, td {
+    border: 1px solid black; /* Добавляем рамку */
+    padding: 8px; /* Отступы */
+    text-align: left; /* Выравнивание текста по левому краю */
+    background-color: rgb(184, 166, 255);
+}
+  
+  th {
+    background-color: #f0f0f0; /* Светлый фон для заголовков */
+  }
+  caption {
+    margin-bottom: 20px; 
+    padding: 0; 
+    width: 300px;
+  }
+</style>
+
+<div class="block">
+    <div>
+        <h3>Профиль: {{ user.username }}</h3>
+    </div>
+</div>
+<div style="margin: 50px;">
+    {% if ads %}
+    <table>
+        <caption class="block">
+        <h3>Ваши объявления</h3>
+        </caption>
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Название</th>
+                <th scope="col">Ссылка</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ad in ads %}
+                <tr>
+                    <td>{{ ad.id }}</td>
+                    <td>{{ ad.title }}</td>
+                    <td>
+                        <a href="/ads/{{ ad.id }}">Подробнее</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <h3 class="block">У вас еще нет объявлений.</h3>
+    {% endif %}
+    <!-- {% if my_reviews %}
+    <table>
+        <caption class="block" style="margin-top: 40px;">
+        <h3>Ваши отклики</h3>
+        </caption>
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Текст</th>
+                <th scope="col">Ссылка</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for review in my_reviews %}
+                <tr>
+                    <td>{{ review.id }}</td>
+                    <td>{{ review.text }}</td>
+                    <td><a href="/ads/{{ review.advert_id }}">Подробнее</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <div class="block">
+            <h3>Пока что вы не оставили ни одного отклика</h3>
+        </div>
+    {% endif %} -->
+    {% if them_reviews %}
+    <table>
+        <caption class="block" style="margin-top: 40px;">
+        <h3>Вам откликнулись</h3>
+        </caption>
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Сообщение</th>
+                <th scope="col">Объявление</th>
+                <th scope="col">Отклик</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for review in them_reviews %}
+                <tr>
+                    <td>{{ review.id }}</td>
+                    <td>{{ review.text }}</td>
+                    <td><a href="/ads/{{ review.advert_id }}">Подробнее</a></td>
+                    <td><a href="/review/{{ review.id }}">Рассмотреть</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <div class="block">
+            <h3>Пока что никто не откликнулся на ваши объявления</h3>
+        </div>
+    {% endif %}
+</div>
+{% endblock content %}
