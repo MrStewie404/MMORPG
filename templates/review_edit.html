@@ -11,12 +11,12 @@ Users
     <div style="background-color: aquamarine; margin: 10px 2px; padding: 0 4px 1px 4px;">
         <ul class="ads" style="display: block;">
             <div style="display: flex; justify-content: space-between;">
-                <h3>Категория: {{ form.content_type }}</h3>
+                <h3>Выберите опцию: {{ form.category_type }}</h3>
                 {% csrf_token %}
                 <input type="submit" value="Изменить" / style="width: 100px; height: 40px;">
             </div>
             <div class="block">
-                <p>Текст: {{ form.text|safe }}</p>
+                <p>Текст: {{ review.text }}</p>
             </div>
         </ul>
     </div>

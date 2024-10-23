@@ -1,0 +1,24 @@
+{% extends 'flatpages/default.html' %} 
+{% load static %}
+ 
+{% block title %}
+Users
+{% endblock title %}
+
+{% block content %}
+<form action="" method="post">
+    <h2 class="center">Ваш отклик</h2>
+    <div style="background-color: aquamarine; margin: 10px 2px; padding: 0 4px 1px 4px;">
+        <ul class="ads" style="display: block;">
+            <div style="display: flex; justify-content: space-between;">
+                <h3>{{ review.category_type }}</h3>
+                {% csrf_token %}
+                <input type="submit" value="Удалить" / style="width: 100px; height: 40px;">
+            </div>
+            <div class="block">
+                <p>Текст: {{ review.text }}</p>
+            </div>
+        </ul>
+    </div>
+</form>
+{% endblock content %}

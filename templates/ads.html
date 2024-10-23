@@ -1,27 +1,22 @@
-<!--  наследуемся от шаблона default.html, который мы создавали для flatpages -->
+
 {% extends 'flatpages/default.html' %} 
 {% load static %}
 
-<!-- Название у нас будет products -->
 {% block title %}
 Users
 {% endblock title %}
  
-<!-- В контенте на странице мы выводим все товары -->
 {% block content %}
-<h1 class="center">Объявления</h1>
+
+<h1 class="center">
+    Объявления
+</h1>
 
 <form action="" method="get">
     
     <div class="center">Название {{ filterset.form.title }}
         <input type="submit" value="Найти" />
     </div>
-    <!-- <div class="center">
-        <div>
-            <div>Категория {{ filterset.form.category }}</div>
-            <div>Дата создания {{ filterset.form.time_create }}</div>
-        </div>
-    </div> -->
 </form>
 
 {% if ads %}
@@ -36,7 +31,11 @@ Users
             <div style="display: flex; justify-content: space-between;">
                 <h3>{{ ad.category.first.name }}</h3>
                     <h3><a href="ads/{{ ad.id }}">перейти</a></h3>
-                <h3>{{ ad.user.username }}</h3>
+                {% if ad.user.username == request.user.username %}
+                    <h3>Вы</h3>
+                {% else %}    
+                    <h3>{{ ad.user.username }}</h3>
+                {% endif %}
             </div>
             <div class="block">
                 <h2>{{ ad.title }}</h2>
@@ -44,8 +43,6 @@ Users
         </ul>
         {% endfor %}
     </div>
-
-    {# Добавляем пагинацию на страницу #}
 
    {# Информация о предыдущих страницах #}
     <div style="display: flex; justify-content: center; margin-top: 60px; font-size: x-large;">

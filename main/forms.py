@@ -13,10 +13,17 @@ class AdForm(forms.ModelForm):
             'content_type'
         ]
 
-class ReviewForm(forms.ModelForm):
+class ReviewCreateForm(forms.ModelForm):
     text = forms.CharField(widget=forms.Textarea(attrs={'class': 'text_input'}))
     class Meta:
         model = Reviews
         fields = [
-            'text', 
+            'text',
+        ]
+
+class ReviewUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Reviews
+        fields = [
+            'category_type'
         ]

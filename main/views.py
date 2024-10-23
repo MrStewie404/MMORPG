@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from .filters import AdsFilter
-from .forms import AdForm, ReviewForm
+from .forms import AdForm, ReviewCreateForm, ReviewUpdateForm
 from .models import User, Ads, Category, Reviews
 from django.contrib.auth.decorators import login_required 
 
@@ -45,7 +45,7 @@ class AdsDelete(DeleteView):
     success_url = reverse_lazy('ads_view')
 
 class ReviewsCreate(CreateView):
-    form_class = ReviewForm
+    form_class = ReviewCreateForm
     model = Reviews
     template_name = 'review_create.html'
 
@@ -82,21 +82,37 @@ def create_ad(request):
         form = AdForm()
     return render(request, 'create_ad.html', {'form': form})
 
-class ReviewDetail(DetailView):
+class ReviewDelete(DeleteView):
     model = Reviews
-    template_name = 'review_detail.html'
+    template_name = 'review_delete.html'
     context_object_name ='review'
+    success_url = reverse_lazy('user_detail')
 
 class ReviewUpdate(UpdateView):
-    form_class = ReviewForm
+    form_class = ReviewUpdateForm
     model = Reviews
     template_name = 'review_edit.html'
+
+def review_update(request, pk):
+    review = get_object_or_404(Reviews, pk=pk)
+    text = Reviews.objects.filter(user_id=request.user)
+    context = {
+        'text': text
+    }
+    if request.method == 'POST':
+        form = ReviewUpdateForm(request.POST, instance=review)
+        if form.is_valid():
+            form.save()  # Сохранение изменения рейтинга
+            return redirect('user_detail')
+    else:
+        form = ReviewUpdateForm(instance=review) 
+    return render(request, 'review_edit.html', {'form': form, 'review': review})
 
 def review_create(request, pk):
        ad = get_object_or_404(Ads, pk=pk) 
        user = request.user.id
        if request.method == 'POST':
-           form = ReviewForm(request.POST)
+           form = ReviewCreateForm(request.POST)
            if form.is_valid():
                review = form.save(commit=False) 
                review.advert = ad
@@ -104,5 +120,5 @@ def review_create(request, pk):
                review.save() 
                return redirect('ad_detail', pk=ad.id) 
        else:
-           form = ReviewForm()
+           form = ReviewCreateForm()
        return render(request, 'review_create.html', {'form': form, 'ad': ad})

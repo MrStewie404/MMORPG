@@ -45,23 +45,27 @@ class Ads(models.Model):
 
     def get_absolute_url(self):
         return f"/ads/{self.pk}"
-    
+
 
 class Reviews(models.Model):
     accepted = 'AT'
     rejected = 'RJ'
+    none = 'NN'
 
     CONTENT_TYPE = [
         (accepted, 'Принято'),
         (rejected, 'Отклонено'),
+        (none, 'Рассматривается'),
     ]
     
     id = models.AutoField(primary_key=True, auto_created=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.CharField(max_length=9000)
     advert = models.ForeignKey(Ads, on_delete=models.CASCADE)
-    category_type = models.CharField(max_length=2, choices=CONTENT_TYPE, default=accepted)
+    category_type = models.CharField(max_length=2, choices=CONTENT_TYPE, default=none)
 
     def __str__(self):
         return self.text
-        
+    
+    def get_absolute_url(self):
+        return f"/profile/"

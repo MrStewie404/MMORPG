@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-dm7fv827i9oeb(!#zo#1k==x%&-e5@e)wv((cc0b6rh^jknt%o
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost',]
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -130,6 +130,12 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
@@ -142,7 +148,7 @@ AUTHENTICATION_BACKENDS = [
 
 SITE_ID = 1 
 LOGIN_REDIRECT_URL = "/"
-   
+
     
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_EMAIL_REQUIRED = True
