@@ -1,0 +1,4 @@
+django-filter
+django-allauth
+requests
+django==2.8
